@@ -21,23 +21,30 @@ parser.add_argument("-f", "--friction", help="rock angle of friction",
                     type=float)
 parser.add_argument("-A", "--area", help="contact area of the rock mass",
                     type=float)
+parser.add_argument("-m", "--mass", help="mass of the rock block",
+                    type=float)
 args = parser.parse_args()
 
+rock_mass = args.mass
 gravity = args.gravity
 slope_angle = args.angle
 friction_angle = args.friction
-area = args.area
+contact_area = args.area
+
 
 # ============================================================================ #
 # FUNCTIONS
 # ============================================================================ #
+def force(mass, grav):
+    return (mass * grav)/1000   # Force in kN
 # TODO func: calculate normal component
 # TODO func: calculate shear component
 # TODO func: calculate normal stress
 # TODO func: calculate shear stress
 # TODO func: calculate demand
 # TODO func: calculate capacity
-# TODO func: calculate FOS
+# TODO func: calculate fos
+
 
 # ============================================================================ #
 # MAIN SCRIPT BLOCK
