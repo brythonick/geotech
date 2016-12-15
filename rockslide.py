@@ -57,12 +57,28 @@ def shear_stress(shear_force, area):
 
 def capacity(norm_stress, friction):
     return norm_stress * tan(radians(friction))
-# TODO func: calculate fos
+
+
+def fos(mass_capacity, mass_demand):
+    return mass_capacity / mass_demand
 
 
 # ============================================================================ #
 # MAIN SCRIPT BLOCK
 # ============================================================================ #
 if __name__ == "__main__":
-    # TODO call: calculate FOS
+    print(fos(
+        capacity(
+            normal_stress(
+                normal(force(rock_mass, gravity), slope_angle),
+                contact_area
+            ),
+            friction_angle
+        ),
+        shear_stress(
+            shear(force(rock_mass, gravity), slope_angle),
+            contact_area
+        )
+    ))
+    # TODO: Format FOS to 2 d.p.
     pass
