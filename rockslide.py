@@ -45,7 +45,10 @@ def normal(total_force, slope):
 
 def shear(total_force, slope):
     return total_force * sin(radians(slope))
-# TODO func: calculate normal stress
+
+
+def normal_stress(normal_force, area):
+    return normal_force / area  # kN/m^2
 # TODO func: calculate shear stress
 # TODO func: calculate demand
 # TODO func: calculate capacity
