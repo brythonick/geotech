@@ -41,7 +41,10 @@ def force(mass, grav):
 
 def normal(total_force, slope):
     return total_force * cos(radians(slope))
-# TODO func: calculate shear component
+
+
+def shear(total_force, slope):
+    return total_force * sin(radians(slope))
 # TODO func: calculate normal stress
 # TODO func: calculate shear stress
 # TODO func: calculate demand
