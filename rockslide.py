@@ -53,8 +53,10 @@ def normal_stress(normal_force, area):
 
 def shear_stress(shear_force, area):
     return shear_force / area   # kN/m^2
-# TODO func: calculate demand
-# TODO func: calculate capacity
+
+
+def capacity(norm_stress, friction):
+    return norm_stress * tan(radians(friction))
 # TODO func: calculate fos
 
 
