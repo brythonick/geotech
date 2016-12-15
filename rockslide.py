@@ -37,7 +37,10 @@ contact_area = args.area
 # ============================================================================ #
 def force(mass, grav):
     return (mass * grav)/1000   # Force in kN
-# TODO func: calculate normal component
+
+
+def normal(total_force, slope):
+    return total_force * cos(radians(slope))
 # TODO func: calculate shear component
 # TODO func: calculate normal stress
 # TODO func: calculate shear stress
