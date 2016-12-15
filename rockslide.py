@@ -14,14 +14,19 @@ from math import sin, cos, tan, radians
 # ============================================================================ #
 parser = ArgumentParser()
 parser.add_argument("-g", "--gravity", help="set the value of gravity",
-                    action="store_true")
+                    type=float)
 parser.add_argument("-a", "--angle", help="sliding surface angle",
-                    action="store_true")
+                    type=float)
 parser.add_argument("-f", "--friction", help="rock angle of friction",
-                    action="store_true")
+                    type=float)
 parser.add_argument("-A", "--area", help="contact area of the rock mass",
-                    action="store_true")
+                    type=float)
 args = parser.parse_args()
+
+gravity = args.gravity
+slope_angle = args.angle
+friction_angle = args.friction
+area = args.area
 
 # ============================================================================ #
 # FUNCTIONS
