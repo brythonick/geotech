@@ -67,7 +67,7 @@ def fos(mass_capacity, mass_demand):
 # MAIN SCRIPT BLOCK
 # ============================================================================ #
 if __name__ == "__main__":
-    print(fos(
+    fos_value = fos(
         capacity(
             normal_stress(
                 normal(force(rock_mass, gravity), slope_angle),
@@ -79,5 +79,5 @@ if __name__ == "__main__":
             shear(force(rock_mass, gravity), slope_angle),
             contact_area
         )
-    ))
-    # TODO: Format FOS to 2 d.p.
+    )
+    print("{:0.2f}".format(fos_value))
