@@ -23,6 +23,8 @@ parser.add_argument("-A", "--area", help="contact area of the rock mass",
                     type=float)
 parser.add_argument("-m", "--mass", help="mass of the rock block",
                     type=float)
+parser.add_argument("-b", "--bolt", help="include a rock bolt, normal to slope",
+                    type=float)
 args = parser.parse_args()
 
 rock_mass = args.mass
@@ -30,6 +32,10 @@ gravity = args.gravity
 slope_angle = args.angle
 friction_angle = args.friction
 contact_area = args.area
+if not args.bolt:
+    rock_bolt = 0
+else:
+    rock_bolt = args.bolt
 
 
 # ============================================================================ #
@@ -39,8 +45,8 @@ def force(mass, grav):
     return (mass * grav)/1000   # Force in kN
 
 
-def normal(total_force, slope):
-    return total_force * cos(radians(slope))
+def normal(total_force, slope, bolt_force):
+    return total_force * cos(radians(slope)) + bolt_force
 
 
 def shear(total_force, slope):
@@ -70,7 +76,7 @@ if __name__ == "__main__":
     fos_value = fos(
         capacity(
             normal_stress(
-                normal(force(rock_mass, gravity), slope_angle),
+                normal(force(rock_mass, gravity), slope_angle, rock_bolt),
                 contact_area
             ),
             friction_angle
