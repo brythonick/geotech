@@ -17,15 +17,15 @@ parser.add_argument("-b", "--bolt", help="include a rock bolt, normal to slope",
                     type=float)
 required = parser.add_argument_group('required arguments')
 required.add_argument("-g", "--gravity", help="set the value of gravity",
-                    type=float, required=True)
+                      type=float, required=True)
 required.add_argument("-a", "--angle", help="sliding surface angle",
-                    type=float, required=True)
+                      type=float, required=True)
 required.add_argument("-f", "--friction", help="rock angle of friction",
-                    type=float, required=True)
+                      type=float, required=True)
 required.add_argument("-A", "--area", help="contact area of the rock mass",
-                    type=float, required=True)
+                      type=float, required=True)
 required.add_argument("-m", "--mass", help="mass of the rock block",
-                    type=float, required=True)
+                      type=float, required=True)
 args = parser.parse_args()
 
 rock_mass = args.mass
