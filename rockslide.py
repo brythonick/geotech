@@ -113,7 +113,7 @@ if __name__ == "__main__":
                 contact_area
             )
         )
-        print("{:0.2f}".format(fos_value))
+        print("{:0.3f}".format(fos_value))
     else:
         demand = shear_stress(
             shear(force(rock_mass, gravity), slope_angle),
