@@ -15,6 +15,8 @@ from functools import partial
 # SCRIPT ARGUMENTS
 # ============================================================================ #
 parser = ArgumentParser()
+parser.add_argument("-t", "--toppling", help="determine toppling failures",
+                    action="store_true")
 required = parser.add_argument_group('required arguments')
 required.add_argument("-i", "--input", help="TXT file with input values",
                       type=str, required=True)
@@ -80,6 +82,37 @@ def sliding_failure(readings, face_dip, face_dir, friction):
     return failing_discont
 
 
+# Functions to check toppling failure geometric rules:
+def dip_direction_rule(reading, face_dir):
+    if face_dir < 180:
+        modifier = 180
+    else:
+        modifier = -180
+    return abs(reading[1] - (face_dir + modifier)) <= 20
+
+
+def vertical_rule(reading):
+    return reading[0] < 90
+
+
+def face_angle_rule(reading, face, friction):
+    return reading[0] > 90 - (face + friction)
+
+
+def toppling_failure(readings, face_dip, face_dir, friction):
+    split_readings = map(split_reading, readings)
+    fail_dip_dir_rule = filter(
+        partial(dip_direction_rule, face_dir=face_dir),
+        split_readings
+    )
+    fail_vertical_rule = filter(vertical_rule, fail_dip_dir_rule)
+    failing_discontinuities = filter(
+        partial(face_angle_rule, face=face_dip, friction=friction),
+        fail_vertical_rule
+    )
+    return failing_discontinuities
+
+
 def print_reading(reading):
     print("{0}/{1}".format(int(reading[0]), int(reading[1])))
 
@@ -88,6 +121,10 @@ def print_reading(reading):
 # MAIN SCRIPT BLOCK
 # ============================================================================ #
 if __name__ == "__main__":
-    failures = sliding_failure(discont_values, face_dip, face_direction,
-                               friction_angle)
+    if args.toppling:
+        failures = toppling_failure(discont_values, face_dip, face_direction,
+                                    friction_angle)
+    else:
+        failures = sliding_failure(discont_values, face_dip, face_direction,
+                                   friction_angle)
     map(print_reading, failures)
